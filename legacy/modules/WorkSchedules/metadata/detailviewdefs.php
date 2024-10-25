@@ -11,7 +11,13 @@ array(
                     2 => 'DELETE',
                     3 => 'FIND_DUPLICATES',
                     4 => array(
-                        'customCode' => '{include file="modules/WorkSchedules/tpls/CloseButton.tpl"}{include file="modules/WorkSchedules/tpls/AcceptWorkPlanButton.tpl"}{include file="modules/WorkSchedules/tpls/UndoAcceptanceButton.tpl"}',
+                        'customCode' => '
+                            {include file="modules/WorkSchedules/tpls/CloseButton.tpl"}
+                            {include file="modules/WorkSchedules/tpls/AcceptWorkPlanButton.tpl"}
+                            {include file="modules/WorkSchedules/tpls/UndoAcceptanceButton.tpl"}
+                            {include file="modules/WorkSchedules/tpls/ApproveButton.tpl"}
+                            {include file="modules/WorkSchedules/tpls/RejectButton.tpl"}
+                            ',
                     ),
                 ),
                 'hidden' => array(
