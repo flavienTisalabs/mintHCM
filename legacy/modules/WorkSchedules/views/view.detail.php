@@ -66,6 +66,14 @@ class WorkSchedulesViewDetail extends ViewDetail {
 
    public function display() {
       global $current_user;
+
+      $button1 = '<input type="button" class="button" onclick="customFunction1();" value="Button 1">';
+
+      $button2 = '<input type="button" class="button" onclick="customFunction2();" value="Button 2">';
+
+      $this->ss->assign('CUSTOM_BUTTON_1', $button1);
+      $this->ss->assign('CUSTOM_BUTTON_2', $button2);
+
       $this->dv->ss->assign('CURRENT_USER_IS_ADMIN', is_admin($current_user));
       return parent::display();
    }
