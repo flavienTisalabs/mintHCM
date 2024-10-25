@@ -10,16 +10,18 @@ if [ -f "$FILE" ]; then
 else
   # Download MintHCM
   echo "Download MintHCM"
-  #minthcm_temp=$(mktemp -d)
+  minthcm_temp=$(mktemp -d)
   #git clone https://github.com/minthcm/minthcm.git $minthcm_temp
-  #git clone https://gitlab.com/TisaLabs/MintHCM.git $minthcm_temp
-  #cp -R $minthcm_temp/* /var/www/MintHCM/
-  #rm -r $minthcm_temp
+  git clone https://github.com/flavienTisalabs/mintHCM.git $minthcm_temp
+  cp -R $minthcm_temp/* /var/www/MintHCM/
+  rm -r $minthcm_temp
   #cp -R C:/Users/flavi/Desktop/Tisalabs/minthcm-4.1.0.1/. /var/www/MintHCM/
 
   php /var/www/script/generate_config.php
   chown -R www-data:www-data /var/www/MintHCM
   chmod -R 755 /var/www/MintHCM
+  chmod -R 755 /var/www/MintHCM/legacy/cache
+  chmod -R 755 /var/www/MintHCM/legacy/upload
  
   # Check if the config_si.php file was generated
   if [[ ! -f /var/www/MintHCM/configMint4 ]]; then

@@ -3,7 +3,7 @@ services:
 
   minthcm-web:
     container_name: minthcm-web
-    image: minthcm:local
+    image: minthcm:locale
     ports:
       - '${WEB_PORT}:80'
     expose:
