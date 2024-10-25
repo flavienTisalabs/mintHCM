@@ -296,7 +296,7 @@ var authInfo = {/literal}{$js_authinfo}{literal}
 							<td width="30%"  valign='top'>
 								<input type='hidden' name='notify_on' value='0'><input name="notify_on" tabindex='1' value="1" class="checkbox" type="checkbox" {$notify_on}>
 							</td>
-							<td scope="row" width="17%">"saluhtnkjag"</td>
+							<td scope="row" width="17%"></td>
 							<td>SALUTSALUTSALUTSALUTSALUTSSALUTSALUTsakyt</td>
 						</tr>
                         <!-- MintHCM #110041 START -->
