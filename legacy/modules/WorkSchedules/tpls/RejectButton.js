@@ -1,5 +1,5 @@
 $( document ).ready( function () {
-    $( '<div id="alert_dialog"></div>' ).appendTo( 'body' ).dialog({
+    $( '<div id="alert_dialog_reject"></div>' ).appendTo( 'body' ).dialog({
         modal: true,
         title: "",
         zIndex: 10000,
@@ -24,7 +24,7 @@ $( document ).ready( function () {
  }
  
  function updatePlanStatus(status) {
-    var dialog = $('#alert_dialog');
+    var dialog = $('#alert_dialog_reject');
     var workschedule_id = getRecordID();
  
     if (!workschedule_id) {
@@ -73,7 +73,7 @@ $( document ).ready( function () {
  
  function checkIfCanBeClosed() {
     var result = true;
-    var dialog = $( '#alert_dialog' );
+    var dialog = $( '#alert_dialog_reject' );
     var workschedule_id = getRecordID() || getTimePanel().taskman.$planSelect.val();
     var schedule_name = checkScheduleName( workschedule_id );
     viewTools.api.callController( {
