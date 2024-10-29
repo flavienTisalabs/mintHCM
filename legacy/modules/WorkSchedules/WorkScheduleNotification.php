@@ -51,10 +51,12 @@ class WorkScheduleNotification {
             $createdBy = $bean->created_by;
             $deputyId = $bean->deputy_id;
             $workScheduleType = $bean->type;
+            $status = $bean->status;
 
-            $notificationMessage = "A new WorkSchedule of type {$workScheduleType} has been created.";
-
-            $this->sendAlert($deputyId, $notificationMessage);
+            if ($status === 'request') {
+                $notificationMessage = "A new WorkSchedule of type {$workScheduleType} has been created.";
+                $this->sendAlert($deputyId, $notificationMessage);
+            }
         }
     }
 
@@ -62,7 +64,7 @@ class WorkScheduleNotification {
         if ($arguments['isUpdate'] === true) {
             $createdBy = $bean->created_by;
             $deputyStatus = $bean->supervisor_acceptance;
-            $statusMessage = ($deputyStatus === 'accepted') 
+            $statusMessage = ($deputyStatus === 'approved') 
                 ? "Your WorkSchedule has been accepted by deputy." 
                 : "Your WorkSchedule has been rejected by deputy.";
 
