@@ -129,17 +129,23 @@ function saveStatus(status) {
    viewTools.GUI.statusBox.showStatus(SUGAR.language.get('app_strings', 'LBL_SAVING'), 'info');
    var workschedule_id = getRecordID();
 
+   var dataPOST = {
+    record: workschedule_id,
+    status: 'closed',
+    to_pdf: 1,
+    sugar_body_only: 1
+    };
+
+    if (status !== 'closed') {
+        dataPOST.supervisor_acceptance = status;
+    }
+
    viewTools.api.callController({
        module: "WorkSchedules",
        action: "save",
        dataType: 'text',
        async: false,
-       dataPOST: {
-           record: workschedule_id,
-           status: status,
-           to_pdf: 1,
-           sugar_body_only: 1
-       },
+       dataPOST: dataPOST,
        callback: function(response) {
            if (!response) {
                console.error(response);
