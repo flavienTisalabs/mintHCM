@@ -15,7 +15,7 @@ array(
                             {include file="modules/WorkSchedules/tpls/CloseButton.tpl"}
                             {include file="modules/WorkSchedules/tpls/AcceptWorkPlanButton.tpl"}
                             {include file="modules/WorkSchedules/tpls/UndoAcceptanceButton.tpl"}
-                            {include file="modules/WorkSchedules/tpls/ApproveButton.tpl"}
+                            {include file="modules/WorkSchedules/tpls/AcceptButton.tpl"}
                             {include file="modules/WorkSchedules/tpls/RejectButton.tpl"}
                             ',
                     ),
