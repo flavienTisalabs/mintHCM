@@ -232,16 +232,32 @@ class WorkSchedules extends Basic
     }
 
     private function sendAlert($userId, $message) {
-        error_log("In send alerte.");
-        $notification = BeanFactory::newBean('Notifications');
-        $notification->assigned_user_id = $userId;
-        $notification->name = "WorkSchedule Notification";
-        $notification->description = $message;
-        $notification->is_read = 0;
-        error_log("save alert.");
-        $notification->save();
-        error_log("function close");
+        error_log("In send alert.");
+        
+        $alert = BeanFactory::newBean('Alerts');
+    
+        $alert->name = "WorkSchedule Notification";
+        $alert->description = $message;
+        $alert->assigned_user_id = $userId;
+        $alert->is_read = 0;
+        $alert->type = "webpush"; 
+        $alert->url_redirect = ''; 
+        $alert->alert_type = 'custom'; 
+    
+        if (!empty($this->related_module)) {
+            $alert->parent_type = $this->related_module;
+            $alert->parent_id = $this->related_id;
+        }
+    
+        if ($alert->save()) {
+            error_log("Alert saved successfully.");
+        } else {
+            error_log("Failed to save alert.");
+        }
+        
+        error_log("Function close.");
     }
+    
 
     protected function addNotification($new_record)
     {
