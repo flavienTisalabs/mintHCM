@@ -3974,8 +3974,6 @@ $app_list_strings['workschedules_status_dom'] = array(
     'worked' => 'In progress',
     'closed' => 'Closed',
     'request' => 'Request',
-    'approve' => 'Approve',
-    'reject' => 'Reject',
 );
 
 $app_list_strings['months_list'] = [
@@ -4019,6 +4017,8 @@ $app_list_strings['supervisor_acceptance_dom'] = array(
     'wait' => 'Waiting for acceptance',
     'not_applicable' => 'Not applicable',
     'accepted' => 'Accepted',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
 );
 $app_list_strings['appraisals_type_list'] = array(
     'recruiting' => 'Recruiting',

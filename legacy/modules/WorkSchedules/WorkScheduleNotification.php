@@ -44,35 +44,39 @@
  * "Supercharged by SuiteCRM" and "Reinvented by MintHCM".
  */
 
-$hook_array['after_relationship_add'][] = array(
-   10,
-   'WorkSchedules after_relationship_add',
-   'modules/WorkSchedules/RelHooks.php',
-   'WorkSchedulesRelHooks',
-   'after_relationship_add'
-);
+class WorkScheduleNotification {
+    
+    public function sendNotificationOnCreate($bean, $event, $arguments) {
+        if ($arguments['isUpdate'] === false) {
+            $createdBy = $bean->created_by;
+            $deputyId = $bean->deputy_id;
+            $workScheduleType = $bean->type;
 
-$hook_array['after_relationship_delete'][] = array(
-   10,
-   'WorkSchedules after_relationship_delete',
-   'modules/WorkSchedules/RelHooks.php',
-   'WorkSchedulesRelHooks',
-   'after_relationship_delete'
-);
+            $notificationMessage = "A new WorkSchedule of type {$workScheduleType} has been created.";
 
-$hook_array['after_save'][] = array(
-   11,
-   'WorkSchedules after_save',
-   'modules/WorkSchedules/WorkScheduleNotification.php',
-   'WorkScheduleNotification',
-   'sendNotificationOnCreate'
-);
+            $this->sendAlert($deputyId, $notificationMessage);
+        }
+    }
 
-$hook_array['after_save'][] = array(
-   12,
-   'WorkSchedules after_save',
-   'modules/WorkSchedules/WorkScheduleNotification.php',
-   'WorkScheduleNotification',
-   'sendNotificationOnResponse'
-);
+    public function sendNotificationOnResponse($bean, $event, $arguments) {
+        if ($arguments['isUpdate'] === true) {
+            $createdBy = $bean->created_by;
+            $deputyStatus = $bean->supervisor_acceptance;
+            $statusMessage = ($deputyStatus === 'accepted') 
+                ? "Your WorkSchedule has been accepted by deputy." 
+                : "Your WorkSchedule has been rejected by deputy.";
 
+            $this->sendAlert($createdBy, $statusMessage);
+        }
+    }
+
+    private function sendAlert($userId, $message) {
+        $notification = BeanFactory::newBean('Notifications');
+        $notification->assigned_user_id = $userId;
+        $notification->name = "Notification WorkSchedule";
+        $notification->description = $message;
+        $notification->is_read = 0;
+        $notification->save();
+    }
+
+}

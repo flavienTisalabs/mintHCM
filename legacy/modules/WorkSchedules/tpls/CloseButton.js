@@ -12,10 +12,10 @@ $( document ).ready( function () {
        updatePlanStatus('closed');
    });
    $( "#ApproveButton" ).click( function () {
-       updatePlanStatus('approve');
+       updatePlanStatus('approved');
    });
    $( "#RejectButton" ).click( function () {
-       updatePlanStatus('reject');
+       updatePlanStatus('rejected');
    });
 });
 
