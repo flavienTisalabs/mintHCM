@@ -190,6 +190,12 @@ class WorkSchedules extends Basic
         $this->beforeSave();
         $new_record = empty($this->fetched_row);
 
+        if ($new_record && $this->type == 'sick') {
+            $deputyId = $this->deputy_id;    
+            $notificationMessage = "A new WorkSchedule of type {$this->type} has been created.";
+            $this->sendAlert($deputyId, $notificationMessage);
+        }
+
         if (empty($this->date_end) || empty($this->date_start)) {
             $GLOBALS['log']->fatal("Date start or date end is empty. Cannot save.Date start: {$this->date_start} date end: {$this->date_end}");
         } else {
@@ -220,6 +226,16 @@ class WorkSchedules extends Basic
         }
         return $parent_result;
     }
+
+    private function sendAlert($userId, $message) {
+        $notification = BeanFactory::newBean('Notifications');
+        $notification->assigned_user_id = $userId;
+        $notification->name = "WorkSchedule Notification";
+        $notification->description = $message;
+        $notification->is_read = 0;
+        $notification->save();
+    }
+
     protected function addNotification($new_record)
     {
         if ($new_record && in_array($this->type , ['holiday', 'sick', 'sick_care', 'occasional_leave', 'leave_at_request', 'overtime', 'excused_absence'])) {

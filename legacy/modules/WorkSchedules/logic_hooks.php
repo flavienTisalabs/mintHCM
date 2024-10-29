@@ -60,7 +60,7 @@ $hook_array['after_relationship_delete'][] = array(
    'after_relationship_delete'
 );
 
-
+/*
 $hook_array['after_save'][] = array(
    11,
    'WorkSchedules after_save',
@@ -69,7 +69,7 @@ $hook_array['after_save'][] = array(
    'sendNotificationOnCreate'
 );
 
-/*
+
 $hook_array['after_save'][] = array(
    12,
    'WorkSchedules after_save',
