@@ -44,41 +44,61 @@
  * "Supercharged by SuiteCRM" and "Reinvented by MintHCM".
  */
 
-class WorkScheduleNotification {
+ class WorkScheduleNotification {
     
     public function sendNotificationOnCreate($bean, $event, $arguments) {
+        error_log("Triggering sendNotificationOnCreate");
+        
         if ($arguments['isUpdate'] === false) {
+            error_log("This is a new WorkSchedule record.");
+            
             $createdBy = $bean->created_by;
             $deputyId = $bean->deputy_id;
             $workScheduleType = $bean->type;
             $status = $bean->status;
 
             if ($status === 'request') {
+                error_log("WorkSchedule status is 'request', sending notification to deputy.");
                 $notificationMessage = "A new WorkSchedule of type {$workScheduleType} has been created.";
                 $this->sendAlert($deputyId, $notificationMessage);
+            } else {
+                error_log("WorkSchedule status is not 'request', no notification sent.");
             }
+        } else {
+            error_log("This is an update to an existing WorkSchedule record, skipping creation notification.");
         }
     }
 
     public function sendNotificationOnResponse($bean, $event, $arguments) {
+        error_log("Triggering sendNotificationOnResponse");
+        
         if ($arguments['isUpdate'] === true) {
+            error_log("This is an update to an existing WorkSchedule record.");
+            
             $createdBy = $bean->created_by;
             $deputyStatus = $bean->supervisor_acceptance;
             $statusMessage = ($deputyStatus === 'approved') 
                 ? "Your WorkSchedule has been accepted by deputy." 
                 : "Your WorkSchedule has been rejected by deputy.";
 
+            error_log("Sending notification to user who created the WorkSchedule.");
             $this->sendAlert($createdBy, $statusMessage);
+        } else {
+            error_log("This is a new WorkSchedule record, skipping response notification.");
         }
     }
 
     private function sendAlert($userId, $message) {
+        error_log("Creating new notification for user ID: $userId with message: $message");
+        
         $notification = BeanFactory::newBean('Notifications');
         $notification->assigned_user_id = $userId;
         $notification->name = "Notification WorkSchedule";
         $notification->description = $message;
         $notification->is_read = 0;
         $notification->save();
+        
+        error_log("Notification saved successfully.");
     }
-
 }
+

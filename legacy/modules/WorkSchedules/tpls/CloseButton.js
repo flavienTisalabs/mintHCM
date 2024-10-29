@@ -42,9 +42,7 @@ function updatePlanStatus(status) {
        var dialog_buttons = {};
        dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_YES')] = function () {
            $(this).dialog("close");
-           if (status === 'closed' && checkIfCanBeClosed()) {
-               saveStatus(status);
-           } else if (status === 'approve' || status === 'reject') {
+           if (checkIfCanBeClosed()) {
                saveStatus(status);
            }
        };
@@ -54,10 +52,10 @@ function updatePlanStatus(status) {
 
        var confirmMessage = '';
        switch (status) {
-           case 'approve':
+           case 'approved':
                confirmMessage = SUGAR.language.get('app_strings', 'LBL_APPROVE_PLAN_CONFIRM');
                break;
-           case 'reject':
+           case 'rejected':
                confirmMessage = SUGAR.language.get('app_strings', 'LBL_REJECT_PLAN_CONFIRM');
                break;
            case 'closed':
