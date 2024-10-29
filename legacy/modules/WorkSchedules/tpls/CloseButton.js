@@ -140,14 +140,15 @@ function saveStatus(status) {
 
    var dataPOST = {
     record: workschedule_id,
-    status: 'closed',
+    status: status,
     to_pdf: 1,
     sugar_body_only: 1
     };
 
+    /*
     if (status !== 'closed') {
         dataPOST.supervisor_acceptance = status;
-    }
+    }*/
 
    viewTools.api.callController({
        module: "WorkSchedules",
