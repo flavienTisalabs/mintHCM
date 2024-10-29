@@ -69,11 +69,12 @@ $hook_array['after_save'][] = array(
    'sendNotificationOnCreate'
 );
 
+/*
 $hook_array['after_save'][] = array(
    12,
    'WorkSchedules after_save',
    'modules/WorkSchedules/WorkScheduleNotification.php',
    'WorkScheduleNotification',
    'sendNotificationOnResponse'
-);
+);*/
 
