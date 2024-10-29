@@ -9,12 +9,15 @@ $( document ).ready( function () {
        resizable: false
    });
    $( "#CloseButton" ).click( function () {
+        console.log("close");
        updatePlanStatus('closed');
    });
    $( "#ApproveButton" ).click( function () {
+         console.log("approved");
        updatePlanStatus('approved');
    });
    $( "#RejectButton" ).click( function () {
+        console.log("rejected");
        updatePlanStatus('rejected');
    });
 });
@@ -26,6 +29,7 @@ function getRecordID() {
    } else {
        record_id = $( "#CloseButton" ).parent().parent().find( 'select' ).val();
    }
+   console.log(record_id);
    return record_id;
 }
 
@@ -34,7 +38,7 @@ function updatePlanStatus(status) {
    var workschedule_id = getRecordID();
 
    if (!workschedule_id) {
-       error_log("SALUT SALUT SALUT SALUT SALUT");
+       console.log("SALUT SALUT SALUT SALUT SALUT");
        dialog.html('<p>' + SUGAR.language.get('app_strings', 'LBL_CHOOSE_PLAN') + '</p>')
              .dialog({buttons: { 
                  [SUGAR.language.get('app_strings', 'LBL_DIALOG_OK')]: function () { $(this).dialog("close"); } 
@@ -43,12 +47,12 @@ function updatePlanStatus(status) {
        var dialog_buttons = {};
        dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_YES')] = function () {
            $(this).dialog("close");
-           error_log("YESS");
+           console.log("YESS");
            if (checkIfCanBeClosed()) {
-               error_log("SAVE");
+               console.log("SAVE");
                saveStatus(status);
            }
-           error_log("AFTER SAVE");
+           console.log("AFTER SAVE");
        };
        dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_NO')] = function () {
            $(this).dialog("close");
@@ -93,7 +97,7 @@ function checkScheduleName( workschedule_id ) {
 
 
 function checkIfCanBeClosed() {
-   error_log("yo");
+   console.log("yo");
    var result = true;
    var dialog = $( '#alert_dialog' );
    var workschedule_id = getRecordID() || getTimePanel().taskman.$planSelect.val();
@@ -122,11 +126,11 @@ function checkIfCanBeClosed() {
                 dialog.html( '<p>' + viewTools.language.get( 'WorkSchedules', 'ERR_WORKPLACE_IS_NOT_ACTIVE' ).replace( '{name}', schedule_name ) + '</p>' ).dialog( {buttons: dialog_buttons} ).dialog( 'open' ).show();
              }
             result = false;
-            error_log("salut");
+            console.log("salut");
          }
       }
    } );
-   error_log("saluttttt");
+   console.log("saluttttt");
    return result;
 }
 
