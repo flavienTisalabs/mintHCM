@@ -9,11 +9,11 @@ $( document ).ready( function () {
         resizable: false
     });
     $( "#ApproveButton" ).click( function () {
-        updatePlanStatus('approve');
+        updatePlanStatusAccept('approve');
     });
  });
  
- function getRecordID() {
+ function getRecordIDAccept() {
     var record_id = '';
     if ( $( "#formDetailView > input[name=record]" ).length > 0 ) {
         record_id = $( "input[name=record]" ).val();
@@ -23,9 +23,9 @@ $( document ).ready( function () {
     return record_id;
  }
  
- function updatePlanStatus(status) {
+ function updatePlanStatusAccept(status) {
     var dialog = $('#alert_dialog_accept');
-    var workschedule_id = getRecordID();
+    var workschedule_id = getRecordIDAccept();
  
     if (!workschedule_id) {
         dialog.html('<p>' + SUGAR.language.get('app_strings', 'LBL_CHOOSE_PLAN') + '</p>')
@@ -36,8 +36,8 @@ $( document ).ready( function () {
         var dialog_buttons = {};
         dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_YES')] = function () {
             $(this).dialog("close");
-            if (checkIfCanBeClosed()) {
-                saveStatus(status);
+            if (checkIfCanBeAccept()) {
+                saveStatusAccept(status);
             }
         };
         dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_NO')] = function () {
@@ -54,7 +54,7 @@ $( document ).ready( function () {
     }
  }
  
- function checkScheduleName( workschedule_id ) {
+ function checkScheduleNameAccept( workschedule_id ) {
     var result = "null";
     viewTools.api.callController( {
        module: "WorkSchedules",
@@ -72,11 +72,11 @@ $( document ).ready( function () {
  }
  
  
- function checkIfCanBeClosed() {
+ function checkIfCanBeAccept() {
     var result = true;
     var dialog = $( '#alert_dialog_accept' );
-    var workschedule_id = getRecordID() || getTimePanel().taskman.$planSelect.val();
-    var schedule_name = checkScheduleName( workschedule_id );
+    var workschedule_id = getRecordIDAccept() || getTimePanel().taskman.$planSelect.val();
+    var schedule_name = checkScheduleNameAccept( workschedule_id );
     viewTools.api.callController( {
        module: "WorkSchedules",
        action: "checkIfCanBeClosed",
@@ -107,9 +107,9 @@ $( document ).ready( function () {
     return result;
  }
  
- function saveStatus(status) {
+ function saveStatusAccept(status) {
     viewTools.GUI.statusBox.showStatus(SUGAR.language.get('app_strings', 'LBL_SAVING'), 'info');
-    var workschedule_id = getRecordID();
+    var workschedule_id = getRecordIDAccept();
  
     viewTools.api.callController({
         module: "WorkSchedules",
