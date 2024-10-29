@@ -3974,6 +3974,8 @@ $app_list_strings['workschedules_status_dom'] = array(
     'worked' => 'In progress',
     'closed' => 'Closed',
     'request' => 'Request',
+    'approve' => 'Approve',
+    'reject' => 'Reject',
 );
 
 $app_list_strings['months_list'] = [

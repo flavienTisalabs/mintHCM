@@ -12,10 +12,10 @@ $( document ).ready( function () {
         updatePlanStatus('closed');
     });
     $( "#ApproveButton" ).click( function () {
-        updatePlanStatus('approved');
+        updatePlanStatus('approve');
     });
     $( "#RejectButton" ).click( function () {
-        updatePlanStatus('rejected');
+        updatePlanStatus('reject');
     });
  });
  
@@ -54,10 +54,10 @@ $( document ).ready( function () {
  
         var confirmMessage = '';
         switch (status) {
-            case 'approved':
+            case 'approve':
                 confirmMessage = SUGAR.language.get('app_strings', 'LBL_APPROVE_PLAN_CONFIRM');
                 break;
-            case 'rejected':
+            case 'reject':
                 confirmMessage = SUGAR.language.get('app_strings', 'LBL_REJECT_PLAN_CONFIRM');
                 break;
             case 'closed':
@@ -129,28 +129,17 @@ $( document ).ready( function () {
     viewTools.GUI.statusBox.showStatus(SUGAR.language.get('app_strings', 'LBL_SAVING'), 'info');
     var workschedule_id = getRecordID();
  
-    var dataPOST = {
-     record: workschedule_id,
-     status: 'closed',
-     to_pdf: 1,
-     sugar_body_only: 1
-     };
-     if (status !== 'closed') {
-         dataPOST.supervisor_acceptance = status;
-     }
     viewTools.api.callController({
         module: "WorkSchedules",
         action: "save",
         dataType: 'text',
         async: false,
-        /*
         dataPOST: {
             record: workschedule_id,
             status: status,
             to_pdf: 1,
             sugar_body_only: 1
-        },*/
-        dataPOST: dataPOST,
+        },
         callback: function(response) {
             if (!response) {
                 console.error(response);
