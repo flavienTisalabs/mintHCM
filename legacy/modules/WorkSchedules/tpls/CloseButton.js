@@ -124,6 +124,7 @@ $( document ).ready( function () {
         dataPOST: {
             record: workschedule_id,
             status: status,
+            supervisor_acceptance: status,
             to_pdf: 1,
             sugar_body_only: 1
         },

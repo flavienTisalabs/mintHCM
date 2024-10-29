@@ -115,10 +115,10 @@ $( document ).ready( function () {
         async: false,
         dataPOST: {
             record: workschedule_id,
-            status: 'closed',
+            status: status,
+            supervisor_acceptance: status,
             to_pdf: 1,
             sugar_body_only: 1,
-            supervisor_acceptance: status,
         },
         callback: function(response) {
             if (!response) {
