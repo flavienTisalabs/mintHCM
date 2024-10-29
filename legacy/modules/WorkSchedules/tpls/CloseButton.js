@@ -42,9 +42,7 @@ $( document ).ready( function () {
         var dialog_buttons = {};
         dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_YES')] = function () {
             $(this).dialog("close");
-            if (status === 'closed' && checkIfCanBeClosed()) {
-                saveStatus(status);
-            } else if (status === 'approve' || status === 'reject') {
+            if (checkIfCanBeClosed()) {
                 saveStatus(status);
             }
         };
@@ -52,18 +50,7 @@ $( document ).ready( function () {
             $(this).dialog("close");
         };
  
-        var confirmMessage = '';
-        switch (status) {
-            case 'approve':
-                confirmMessage = SUGAR.language.get('app_strings', 'LBL_APPROVE_PLAN_CONFIRM');
-                break;
-            case 'reject':
-                confirmMessage = SUGAR.language.get('app_strings', 'LBL_REJECT_PLAN_CONFIRM');
-                break;
-            case 'closed':
-                confirmMessage = SUGAR.language.get('app_strings', 'LBL_CLOSE_PLAN_CONFIRM');
-                break;
-        }
+        var confirmMessage = SUGAR.language.get('app_strings', 'LBL_CLOSE_PLAN_CONFIRM');
  
         dialog.html('<p>' + confirmMessage + '</p>')
               .dialog({buttons: dialog_buttons})

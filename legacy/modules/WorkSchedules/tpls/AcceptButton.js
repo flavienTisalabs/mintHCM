@@ -36,7 +36,9 @@ $( document ).ready( function () {
         var dialog_buttons = {};
         dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_YES')] = function () {
             $(this).dialog("close");
-            saveStatus(status);
+            if (checkIfCanBeClosed()) {
+                saveStatus(status);
+            }
         };
         dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_NO')] = function () {
             $(this).dialog("close");
@@ -116,9 +118,10 @@ $( document ).ready( function () {
         async: false,
         dataPOST: {
             record: workschedule_id,
-            status: status,
+            status: 'closed',
             to_pdf: 1,
-            sugar_body_only: 1
+            sugar_body_only: 1,
+            supervisor_acceptance: status,
         },
         callback: function(response) {
             if (!response) {
