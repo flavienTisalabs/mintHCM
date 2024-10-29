@@ -410,9 +410,9 @@ class WorkSchedules extends Basic
 
     protected function setSupervisorAcceptance()
     {
-        if (!in_array($this->type, array('holiday', 'overtime', 'home'))) {
+        if (!in_array($this->type, array('sick', 'sick_care', 'occasional_leave', 'holiday', 'leave_at_request', 'excused_absence', 'overtime', 'home'))) {
             $this->supervisor_acceptance = 'not_applicable';
-        } elseif ((in_array($this->type, array('holiday', 'overtime', 'home')) && !in_array($this->fetched_row['type'], array('holiday', 'overtime', 'home'))) || ($this->date_start != $this->fetched_row['date_start'] || $this->date_end != $this->fetched_row['date_end'])) {
+        } elseif ((in_array($this->type, array('sick', 'sick_care', 'occasional_leave', 'holiday', 'leave_at_request', 'excused_absence', 'overtime', 'home')) && !in_array($this->fetched_row['type'], array('sick', 'sick_care', 'occasional_leave', 'holiday', 'leave_at_request', 'excused_absence', 'overtime', 'home'))) || ($this->date_start != $this->fetched_row['date_start'] || $this->date_end != $this->fetched_row['date_end'])) {
             $this->supervisor_acceptance = 'wait';
         }
     }
