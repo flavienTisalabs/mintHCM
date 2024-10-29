@@ -190,6 +190,7 @@ class WorkSchedules extends Basic
         $this->beforeSave();
         $new_record = empty($this->fetched_row);
 
+        /*
         if ($new_record && $this->status == 'request') {
             error_log("In new request notification");
             $deputyId = $this->deputy_id;    
@@ -198,6 +199,7 @@ class WorkSchedules extends Basic
             $this->sendAlert($deputyId, $notificationMessage);
         }
         error_log("Suite");
+        */
 
 
         if (empty($this->date_end) || empty($this->date_start)) {

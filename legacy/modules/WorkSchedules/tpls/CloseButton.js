@@ -13,12 +13,12 @@ $( document ).ready( function () {
        updatePlanStatus('closed');
    });
    $( "#ApproveButton" ).click( function () {
-         console.log("approved");
-       updatePlanStatus('approved');
+         console.log("approve");
+       updatePlanStatus('approve');
    });
    $( "#RejectButton" ).click( function () {
         console.log("rejected");
-       updatePlanStatus('rejected');
+       updatePlanStatus('reject');
    });
 });
 
@@ -60,10 +60,10 @@ function updatePlanStatus(status) {
 
        var confirmMessage = '';
        switch (status) {
-           case 'approved':
+           case 'approve':
                confirmMessage = SUGAR.language.get('app_strings', 'LBL_APPROVE_PLAN_CONFIRM');
                break;
-           case 'rejected':
+           case 'reject':
                confirmMessage = SUGAR.language.get('app_strings', 'LBL_REJECT_PLAN_CONFIRM');
                break;
            case 'closed':
@@ -140,7 +140,7 @@ function saveStatus(status) {
 
    var dataPOST = {
     record: workschedule_id,
-    status: status,
+    status: 'closed',
     to_pdf: 1,
     sugar_body_only: 1
     };
