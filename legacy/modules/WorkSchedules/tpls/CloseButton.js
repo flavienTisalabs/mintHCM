@@ -34,6 +34,7 @@ function updatePlanStatus(status) {
    var workschedule_id = getRecordID();
 
    if (!workschedule_id) {
+       error_log("SALUT SALUT SALUT SALUT SALUT");
        dialog.html('<p>' + SUGAR.language.get('app_strings', 'LBL_CHOOSE_PLAN') + '</p>')
              .dialog({buttons: { 
                  [SUGAR.language.get('app_strings', 'LBL_DIALOG_OK')]: function () { $(this).dialog("close"); } 
@@ -42,12 +43,12 @@ function updatePlanStatus(status) {
        var dialog_buttons = {};
        dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_YES')] = function () {
            $(this).dialog("close");
-           console.log("YESS");
+           error_log("YESS");
            if (checkIfCanBeClosed()) {
-               console.log("SAVE");
+               error_log("SAVE");
                saveStatus(status);
            }
-           console.log("AFTER SAVE");
+           error_log("AFTER SAVE");
        };
        dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_NO')] = function () {
            $(this).dialog("close");
@@ -92,7 +93,7 @@ function checkScheduleName( workschedule_id ) {
 
 
 function checkIfCanBeClosed() {
-   console.log("yo");
+   error_log("yo");
    var result = true;
    var dialog = $( '#alert_dialog' );
    var workschedule_id = getRecordID() || getTimePanel().taskman.$planSelect.val();
@@ -121,11 +122,11 @@ function checkIfCanBeClosed() {
                 dialog.html( '<p>' + viewTools.language.get( 'WorkSchedules', 'ERR_WORKPLACE_IS_NOT_ACTIVE' ).replace( '{name}', schedule_name ) + '</p>' ).dialog( {buttons: dialog_buttons} ).dialog( 'open' ).show();
              }
             result = false;
-            console.log("salut");
+            error_log("salut");
          }
       }
    } );
-   console.log("saluttttt");
+   error_log("saluttttt");
    return result;
 }
 
