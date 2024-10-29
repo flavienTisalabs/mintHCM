@@ -43,10 +43,8 @@ $( document ).ready( function () {
         dialog_buttons[SUGAR.language.get('app_strings', 'LBL_DIALOG_NO')] = function () {
             $(this).dialog("close");
         };
- 
-        var confirmMessage = SUGAR.language.get('app_strings', 'LBL_REJECT_PLAN_CONFIRM');
- 
-        dialog.html('<p>' + confirmMessage + '</p>')
+  
+        dialog.html('<p>' + SUGAR.language.get('app_strings', 'LBL_REJECT_PLAN_CONFIRM') + '</p>')
               .dialog({buttons: dialog_buttons})
               .dialog('open')
               .show();
