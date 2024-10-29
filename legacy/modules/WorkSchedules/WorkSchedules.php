@@ -190,11 +190,15 @@ class WorkSchedules extends Basic
         $this->beforeSave();
         $new_record = empty($this->fetched_row);
 
-        if ($new_record && $this->type == 'sick') {
+        if ($new_record && $this->status == 'request') {
+            error_log("In new request notification");
             $deputyId = $this->deputy_id;    
             $notificationMessage = "A new WorkSchedule of type {$this->type} has been created.";
+            error_log("Send alert.");
             $this->sendAlert($deputyId, $notificationMessage);
         }
+        error_log("Suite");
+
 
         if (empty($this->date_end) || empty($this->date_start)) {
             $GLOBALS['log']->fatal("Date start or date end is empty. Cannot save.Date start: {$this->date_start} date end: {$this->date_end}");
@@ -228,12 +232,15 @@ class WorkSchedules extends Basic
     }
 
     private function sendAlert($userId, $message) {
+        error_log("In send alerte.");
         $notification = BeanFactory::newBean('Notifications');
         $notification->assigned_user_id = $userId;
         $notification->name = "WorkSchedule Notification";
         $notification->description = $message;
         $notification->is_read = 0;
+        error_log("save alert.");
         $notification->save();
+        error_log("function close");
     }
 
     protected function addNotification($new_record)
