@@ -285,6 +285,11 @@ class WorkSchedulesController extends SugarController
         $message = $_REQUEST['message'];
         $userId = $_REQUEST['user_id'];
         
+        error_log("SALUTSALUT");
+        error_log($id);
+        error_log($message);
+        error_log($userId);
+
         $alert = BeanFactory::newBean('Alerts');
     
         $alert->name = "WorkSchedule Notification";
@@ -308,6 +313,7 @@ class WorkSchedulesController extends SugarController
             $result = $db->getOne($sql);
 
             if ($result) {
+                error_log(json_encode($result));
                 echo json_encode($result);
             } else {
                 echo json_encode(['error' => 'Work schedule not found.']);
