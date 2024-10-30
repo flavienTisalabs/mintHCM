@@ -127,8 +127,46 @@ $( document ).ready( function () {
             if (!response) {
                 console.error(response);
             } else {
-                location.reload();
+                viewTools.api.callController({
+                    module: "WorkSchedules",
+                    action: "getWorkScheduleDetails",
+                    dataType: 'json',
+                    async: false,
+                    dataPOST: {
+                        id: workschedule_id
+                    },
+                    callback: function(detailsResponse) {
+                        if (detailsResponse && !detailsResponse.error) {
+                            var type = detailsResponse.type;
+                            var assigned_user_id = detailsResponse.assigned_user_id;
+                            var date_start = detailsResponse.date_start;
+                            var date_end = detailsResponse.date_end;
+
+                            var message = "Your request of type " + type + " from " + date_start + " to " + date_end + " has been rejected.";
+
+                            viewTools.api.callController({
+                                module: "WorkSchedules",
+                                action: "sendAlert",
+                                dataType: 'text',
+                                async: false,
+                                dataPOST: {
+                                    id: workschedule_id,
+                                    user_id: assigned_user_id,
+                                    message: message
+                                },
+                                callback: function(alertResponse) {
+                                    if (!alertResponse) {
+                                        console.error("Erreur lors de l'envoi de l'alerte");
+                                    }
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            console.error("Erreur lors de la récupération des détails:", detailsResponse.error);
+                        }
+                    }
+                });
             }
         }
     });
- }
+}

@@ -279,4 +279,42 @@ class WorkSchedulesController extends SugarController
         echo json_encode(['status' => $_SESSION['dashlet_loaded_before']]);
     }
 
+    public function action_sendAlert()
+    {
+        $id = $_REQUEST['id'];
+        $message = $_REQUEST['message'];
+        $userId = $_REQUEST['user_id'];
+        
+        $alert = BeanFactory::newBean('Alerts');
+    
+        $alert->name = "WorkSchedule Notification";
+        $alert->description = $message;
+        $alert->assigned_user_id = $userId;
+        $alert->is_read = 0;
+        $alert->url_redirect = "index.php?module=WorkSchedules&action=DetailView&record=" . $id;
+        $alert->alert_type = 'normal'; 
+
+        $alert->save();
+    }
+
+    public function action_getWorkScheduleDetails()
+    {
+        global $db;
+
+        if (isset($_REQUEST['id'])) {
+            $workschedule_id = $_REQUEST['id'];
+
+            $sql = "SELECT 'type', assigned_user_id, date_start, date_end FROM workschedules WHERE id = '{$workschedule_id}'";
+            $result = $db->getRow($sql);
+
+            if ($result) {
+                echo json_encode($result);
+            } else {
+                echo json_encode(['error' => 'Work schedule not found.']);
+            }
+        } else {
+            echo json_encode(['error' => 'No ID provided.']);
+        }
+    }
+
 }

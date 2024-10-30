@@ -205,7 +205,7 @@ class WorkSchedules extends Basic
         if ($new_record && $this->status == 'request') {
             error_log("In new request notification");
             $deputyId = $this->deputy_id;    
-            $notificationMessage = "A new WorkSchedule of type {$this->type} has been created.";
+            $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";
             error_log("Send alert.");
             $this->sendAlert($deputyId, $notificationMessage);
         }
@@ -270,9 +270,8 @@ class WorkSchedules extends Basic
         $alert->description = $message;
         $alert->assigned_user_id = $userId;
         $alert->is_read = 0;
-        $alert->type = "othertest"; 
-        $alert->url_redirect = ''; 
-        $alert->alert_type = 'custom'; 
+        $alert->url_redirect = "index.php?module=WorkSchedules&action=DetailView&record=" . $this->id;
+        $alert->alert_type = 'normal'; 
     
         if (!empty($this->related_module)) {
             $alert->parent_type = $this->related_module;
