@@ -284,11 +284,6 @@ class WorkSchedulesController extends SugarController
         $id = $_REQUEST['id'];
         $message = $_REQUEST['message'];
         $user_id = $_REQUEST['user_id'];
-        
-        error_log("SALUTSALUT");
-        error_log($id);
-        error_log($message);
-        error_log($user_id);
 
         $alert = BeanFactory::newBean('Alerts');
     
@@ -302,49 +297,10 @@ class WorkSchedulesController extends SugarController
         $alert->save();
     }
 
-    /*
     public function action_getWorkScheduleDetails()
     {
         global $db;
-
-        error_log("get details");
-
-
-        if (isset($_REQUEST['id'])) {
-            $workschedule_id = $_REQUEST['id'];
-
-            error_log("good ID");
-
-            $sql = "SELECT * FROM workschedules WHERE id = '{$workschedule_id}'";
-            $result = $db->query($sql);
-
-            error_log(json_encode($result));
-
-
-            $sql2 = "SELECT * FROM workschedules";
-            $result2 = $db->query($sql2);
-
-            error_log(json_encode($result2));
-
-
-            if ($result) {
-                echo json_encode($result);
-            } else {
-                echo json_encode(['error' => 'Work schedule not found.']);
-            }
-        } else {
-            echo json_encode(['error' => 'No ID provided.']);
-        }
-
-        error_log("CLOSE details");
-    }*/
-
-    public function action_getWorkScheduleDetails()
-    {
-        global $db;
-    
-        error_log("get details");
-    
+        
         if (isset($_REQUEST['id'])) {
             $workschedule_id = $db->quote($_REQUEST['id']);
     
@@ -363,9 +319,7 @@ class WorkSchedulesController extends SugarController
             }
         } else {
             echo json_encode(['error' => 'No ID provided.']);
-        }
-    
-        error_log("CLOSE details");
+        }    
     }
     
 

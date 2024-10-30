@@ -122,24 +122,6 @@ class WorkSchedules extends Basic
     {
         global $timedate, $current_user;
 
-        echo "Hello, world!\n";
-        echo "Hello, world\n";
-        echo "Hello, worl!\n";
-        echo "Hello, word!\n";
-        echo "Hello, wold!\n";
-
-        $sql = "SELECT * FROM alerts";
-        $result = $this->db->query($sql);        
-        $alerts = [];        
-        while ($row = $this->db->fetchByAssoc($result)) {
-            $alerts[] = $row;
-        }
-
-        error_log("YAYAYAYA");
-
-
-        error_log(json_encode($alerts));
-
         $this->fixUpFormatting();
         $this->setSupervisorAcceptance();
 
@@ -203,13 +185,13 @@ class WorkSchedules extends Basic
 
         
         if ($new_record && $this->status == 'request') {
-            error_log("In new request notification");
             $deputyId = $this->deputy_id;    
             $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";
-            error_log("Send alert.");
-            $this->sendAlert($deputyId, $notificationMessage);
+            //$this->sendAlert($deputyId, $notificationMessage);
+            error_log("YAYAYAYA");
+            error_log($this->id);
+            $this->sendAlert($this->id, $notificationMessage, $deputyId);
         }
-        error_log("Suite");
 
 
         if (empty($this->date_end) || empty($this->date_start)) {
@@ -242,29 +224,12 @@ class WorkSchedules extends Basic
         }
 
 
-        
-        $sql = "SELECT * FROM alerts";
-        $result = $this->db->query($sql);        
-        $alerts = [];        
-        while ($row = $this->db->fetchByAssoc($result)) {
-            $alerts[] = $row;
-        }
-
-        error_log("END SAVE");
-        error_log(json_encode($alerts));
-
-
         return $parent_result;
     }
 
-    private function sendAlert($userId, $message) {
-        error_log("In send alert.");
-        
+    /*
+    private function sendAlert($userId, $message) {        
         $alert = BeanFactory::newBean('Alerts');
-
-        error_log($message);
-        error_log($userId);
-
     
         $alert->name = "WorkSchedule Notification";
         $alert->description = $message;
@@ -278,27 +243,8 @@ class WorkSchedules extends Basic
             $alert->parent_id = $this->related_id;
         }
     
-        error_log(json_encode($alert));
-
-
-        if ($alert->save()) {
-            error_log("Alert saved successfully.");
-        } else {
-            error_log("Failed to save alert.");
-        }
-
-
-        $sql = "SELECT * FROM alerts";
-        $result = $this->db->query($sql);        
-        $alerts = [];        
-        while ($row = $this->db->fetchByAssoc($result)) {
-            $alerts[] = $row;
-        }
-
-        error_log(json_encode($alerts));
-        
-        error_log("Function close.");
-    }
+        $alert->save();
+    }*/
     
 
     protected function addNotification($new_record)

@@ -142,7 +142,7 @@ $( document ).ready( function () {
                             var date_start = detailsResponse.date_start;
                             var date_end = detailsResponse.date_end;
 
-                            var message = "Your request of type " + type + " from " + date_start + " to " + date_end + " has been rejected.";
+                            var message = "Your request for " + type + " from " + date_start + " to " + date_end + " has been rejected.";
 
                             viewTools.api.callController({
                                 module: "WorkSchedules",
