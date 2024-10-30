@@ -1,14 +1,4 @@
 $( document ).ready( function () {
-    /*
-    $( '<div id="alert_dialog_accept"></div>' ).appendTo( 'body' ).dialog({
-        modal: true,
-        title: SUGAR.language.get('app_strings', 'LBL_APPROVE_PLAN_CONFIRM'),
-        zIndex: 10000,
-        autoOpen: false,
-        width: 'auto',
-        height: 'auto',
-        resizable: false
-    });*/
     function createDialog(dialogId) {
         $( '<div id="' + dialogId + '"></div>' ).appendTo( 'body' ).dialog({
             modal: true,

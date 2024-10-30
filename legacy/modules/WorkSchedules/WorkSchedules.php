@@ -128,6 +128,17 @@ class WorkSchedules extends Basic
         echo "Hello, word!\n";
         echo "Hello, wold!\n";
 
+        $sql = "SELECT * FROM alerts";
+        $result = $this->db->query($sql);        
+        $alerts = [];        
+        while ($row = $this->db->fetchByAssoc($result)) {
+            $alerts[] = $row;
+        }
+
+        error_log("YAYAYAYA");
+
+
+        error_log($alerts);
 
         $this->fixUpFormatting();
         $this->setSupervisorAcceptance();
@@ -236,6 +247,10 @@ class WorkSchedules extends Basic
         error_log("In send alert.");
         
         $alert = BeanFactory::newBean('Alerts');
+
+        error_log($message);
+        error_log($userId);
+
     
         $alert->name = "WorkSchedule Notification";
         $alert->description = $message;
@@ -250,11 +265,25 @@ class WorkSchedules extends Basic
             $alert->parent_id = $this->related_id;
         }
     
+        error_log($alert);
+
+
         if ($alert->save()) {
             error_log("Alert saved successfully.");
         } else {
             error_log("Failed to save alert.");
         }
+
+
+        $sql = "SELECT * FROM alerts";
+        $result = $this->db->query($sql);        
+        $alerts = [];        
+        while ($row = $this->db->fetchByAssoc($result)) {
+            $alerts[] = $row;
+        }
+
+        error_log($alerts);
+
         
         error_log("Function close.");
     }
