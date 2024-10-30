@@ -151,8 +151,8 @@ $( document ).ready( function () {
                                 async: false,
                                 dataPOST: {
                                     id: workschedule_id,
-                                    user_id: assigned_user_id,
-                                    message: message
+                                    message: message,
+                                    user_id: assigned_user_id
                                 },
                                 callback: function(alertResponse) {
                                     if (!alertResponse) {

@@ -283,18 +283,18 @@ class WorkSchedulesController extends SugarController
     {
         $id = $_REQUEST['id'];
         $message = $_REQUEST['message'];
-        $userId = $_REQUEST['user_id'];
+        $user_id = $_REQUEST['user_id'];
         
         error_log("SALUTSALUT");
         error_log($id);
         error_log($message);
-        error_log($userId);
+        error_log($user_id);
 
         $alert = BeanFactory::newBean('Alerts');
     
         $alert->name = "WorkSchedule Notification";
         $alert->description = $message;
-        $alert->assigned_user_id = $userId;
+        $alert->assigned_user_id = $user_id;
         $alert->is_read = 0;
         $alert->url_redirect = "index.php?module=WorkSchedules&action=DetailView&record=" . $id;
         $alert->alert_type = 'normal'; 
@@ -342,34 +342,32 @@ class WorkSchedulesController extends SugarController
     public function action_getWorkScheduleDetails()
     {
         global $db;
-
+    
         error_log("get details");
-
+    
         if (isset($_REQUEST['id'])) {
-            $workschedule_id = $_REQUEST['id'];
-
-            error_log("good ID");
-
-            $workschedule_id = $db->quote($workschedule_id);
-            $sql = "SELECT * FROM workschedules WHERE id = '{$workschedule_id}'";
+            $workschedule_id = $db->quote($_REQUEST['id']);
+    
+            $sql = "SELECT type, assigned_user_id, date_start, date_end FROM workschedules WHERE id = '{$workschedule_id}'";
             $result = $db->query($sql);
-
-            if ($result && $db->getRowCount($result) > 0) {
-                $workschedule_details = [];
-                while ($row = $db->fetchByAssoc($result)) {
-                    $workschedule_details[] = $row;
-                }
-                error_log(json_encode($workschedule_details));
-                echo json_encode($workschedule_details);
+    
+            if ($result && $row = $db->fetchByAssoc($result)) {
+                echo json_encode([
+                    'type' => $row['type'],
+                    'assigned_user_id' => $row['assigned_user_id'],
+                    'date_start' => $row['date_start'],
+                    'date_end' => $row['date_end']
+                ]);
             } else {
                 echo json_encode(['error' => 'Work schedule not found.']);
             }
         } else {
             echo json_encode(['error' => 'No ID provided.']);
         }
-
+    
         error_log("CLOSE details");
     }
+    
 
 
 }
