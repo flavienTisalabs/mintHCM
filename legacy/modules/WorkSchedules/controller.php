@@ -314,10 +314,16 @@ class WorkSchedulesController extends SugarController
 
             error_log("good ID");
 
-            $sql = "SELECT assigned_user_id, date_start, date_end, 'type' FROM workschedules WHERE id = '{$workschedule_id}'";
+            $sql = "SELECT * FROM workschedules WHERE id = '{$workschedule_id}'";
             $result = $db->query($sql);
 
             error_log(json_encode($result));
+
+
+            $sql2 = "SELECT * FROM workschedules";
+            $result2 = $db->query($sql2);
+
+            error_log(json_encode($result2));
 
 
             if ($result) {
