@@ -265,7 +265,7 @@ class WorkSchedules extends Basic
             $alert->parent_id = $this->related_id;
         }
     
-        error_log($alert);
+        error_log(json_encode($alert));
 
 
         if ($alert->save()) {
