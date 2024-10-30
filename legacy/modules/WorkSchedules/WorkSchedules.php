@@ -195,7 +195,7 @@ class WorkSchedules extends Basic
         }
 
         // MintHCM #76236 START
-        $this->disableAlertForConfirmedWorkSchedule();
+        //$this->disableAlertForConfirmedWorkSchedule();
         // MintHCM #76236 END
 
         $this->beforeSave();
@@ -240,6 +240,20 @@ class WorkSchedules extends Basic
                 handleRedirect($return_id, 'Calls');
             }
         }
+
+
+        
+        $sql = "SELECT * FROM alerts";
+        $result = $this->db->query($sql);        
+        $alerts = [];        
+        while ($row = $this->db->fetchByAssoc($result)) {
+            $alerts[] = $row;
+        }
+
+        error_log("END SAVE");
+        error_log(json_encode($alerts));
+
+
         return $parent_result;
     }
 
