@@ -270,7 +270,7 @@ class WorkSchedules extends Basic
         $alert->description = $message;
         $alert->assigned_user_id = $userId;
         $alert->is_read = 0;
-        $alert->type = "webpush"; 
+        $alert->type = "othertest"; 
         $alert->url_redirect = ''; 
         $alert->alert_type = 'custom'; 
     
