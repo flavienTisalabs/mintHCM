@@ -305,7 +305,7 @@ class WorkSchedulesController extends SugarController
             $workschedule_id = $_REQUEST['id'];
 
             $sql = "SELECT 'type', assigned_user_id, date_start, date_end FROM workschedules WHERE id = '{$workschedule_id}'";
-            $result = $db->getRow($sql);
+            $result = $db->getOne($sql);
 
             if ($result) {
                 echo json_encode($result);
