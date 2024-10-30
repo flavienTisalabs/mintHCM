@@ -183,16 +183,6 @@ class WorkSchedules extends Basic
         $this->beforeSave();
         $new_record = empty($this->fetched_row);
 
-        
-        if ($new_record && $this->status == 'request') {
-            $deputyId = $this->deputy_id;    
-            $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";
-            //$this->sendAlert($deputyId, $notificationMessage);
-            error_log("YAYAYAYA");
-            error_log($this->id);
-            $this->sendAlert($this->id, $notificationMessage, $deputyId);
-        }
-
 
         if (empty($this->date_end) || empty($this->date_start)) {
             $GLOBALS['log']->fatal("Date start or date end is empty. Cannot save.Date start: {$this->date_start} date end: {$this->date_end}");
@@ -215,6 +205,13 @@ class WorkSchedules extends Basic
         }
 
         $this->addNotification($new_record);
+
+        if ($new_record && $this->status == 'request') {
+            $deputyId = $this->deputy_id;    
+            $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";
+            $this->sendAlert($deputyId, $notificationMessage);
+        }
+
         if ($parent_result) {
             if (isset($_REQUEST['return_module']) && ($_REQUEST['return_module'] == 'Calendar' || $_REQUEST['return_module'] == 'Home')) {
                 header("Location: index.php?module={$_REQUEST['return_module']}&action=index");
@@ -223,11 +220,13 @@ class WorkSchedules extends Basic
             }
         }
 
+        error_log("SALUTSALUT");
+        error_log($return_id);
+        error_log($parent_result);
 
         return $parent_result;
     }
 
-    /*
     private function sendAlert($userId, $message) {        
         $alert = BeanFactory::newBean('Alerts');
     
@@ -244,7 +243,7 @@ class WorkSchedules extends Basic
         }
     
         $alert->save();
-    }*/
+    }
     
 
     protected function addNotification($new_record)
