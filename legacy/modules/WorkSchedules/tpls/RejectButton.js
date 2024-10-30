@@ -1,14 +1,17 @@
 $( document ).ready( function () {
-    $( '<div id="alert_dialog_reject"></div>' ).appendTo( 'body' ).dialog({
-        modal: true,
-        title: "",
-        zIndex: 10000,
-        autoOpen: false,
-        width: 'auto',
-        height: 'auto',
-        resizable: false
-    });
+    function createDialog(dialogId) {
+        $( '<div id="' + dialogId + '"></div>' ).appendTo( 'body' ).dialog({
+            modal: true,
+            title: "",
+            zIndex: 10000,
+            autoOpen: false,
+            width: 'auto',
+            height: 'auto',
+            resizable: false
+        });
+    }
     $( "#RejectButton" ).click( function () {
+        createDialog('alert_dialog_reject');
         updatePlanStatusReject('reject');
     });
  });

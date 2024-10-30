@@ -1,4 +1,5 @@
 $( document ).ready( function () {
+    /*
     $( '<div id="alert_dialog_close"></div>' ).appendTo( 'body' ).dialog({
         modal: true,
         title: "",
@@ -7,16 +8,29 @@ $( document ).ready( function () {
         width: 'auto',
         height: 'auto',
         resizable: false
-    });
+    });*/
+    function createDialog(dialogId) {
+        $( '<div id="' + dialogId + '"></div>' ).appendTo( 'body' ).dialog({
+            modal: true,
+            title: "",
+            zIndex: 10000,
+            autoOpen: false,
+            width: 'auto',
+            height: 'auto',
+            resizable: false
+        });
+    }
     $( "#CloseButton" ).click( function () {
+        createDialog('alert_dialog_close');
         updatePlanStatus('closed');
     });
+    /*
     $( "#ApproveButton" ).click( function () {
         updatePlanStatus('approve');
     });
     $( "#RejectButton" ).click( function () {
         updatePlanStatus('reject');
-    });
+    });*/
  });
  
  function getRecordID() {
