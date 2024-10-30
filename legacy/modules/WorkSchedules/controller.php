@@ -306,14 +306,21 @@ class WorkSchedulesController extends SugarController
     {
         global $db;
 
+        error_log("get details");
+
+
         if (isset($_REQUEST['id'])) {
             $workschedule_id = $_REQUEST['id'];
 
-            $sql = "SELECT 'type', assigned_user_id, date_start, date_end FROM workschedules WHERE id = '{$workschedule_id}'";
+            error_log("good ID");
+
+            $sql = "SELECT assigned_user_id, date_start, date_end, 'type' FROM workschedules WHERE id = '{$workschedule_id}'";
             $result = $db->getOne($sql);
 
+            error_log(json_encode($result));
+
+
             if ($result) {
-                error_log(json_encode($result));
                 echo json_encode($result);
             } else {
                 echo json_encode(['error' => 'Work schedule not found.']);
@@ -321,6 +328,8 @@ class WorkSchedulesController extends SugarController
         } else {
             echo json_encode(['error' => 'No ID provided.']);
         }
+
+        error_log("CLOSE details");
     }
 
 }
