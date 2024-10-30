@@ -220,10 +220,6 @@ class WorkSchedules extends Basic
             }
         }
 
-        error_log("SALUTSALUT");
-        error_log($return_id);
-        error_log($parent_result);
-
         return $parent_result;
     }
 

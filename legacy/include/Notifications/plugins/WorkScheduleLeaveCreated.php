@@ -63,8 +63,9 @@ class WorkScheduleLeaveCreated extends NotificationPlugin
             return;
         }
         global $app_list_strings;
-        $user = BeanFactory::getBean('Users', $this->work_schedule->assigned_user_id);
-        $superior_id = $user->reports_to_id;
+        //$user = BeanFactory::getBean('Users', $this->work_schedule->assigned_user_id);
+        //$superior_id = $user->reports_to_id;
+        $superior_id = $this->work_schedule->deputy_id;
         $message = vsprintf(
             translate('LBL_LEAVE_ALERT', 'WorkSchedules'), 
             [
