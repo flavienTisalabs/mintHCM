@@ -138,7 +138,7 @@ class WorkSchedules extends Basic
         error_log("YAYAYAYA");
 
 
-        error_log($alerts);
+        error_log(json_encode($alerts));
 
         $this->fixUpFormatting();
         $this->setSupervisorAcceptance();
@@ -282,8 +282,7 @@ class WorkSchedules extends Basic
             $alerts[] = $row;
         }
 
-        error_log($alerts);
-
+        error_log(json_encode($alerts));
         
         error_log("Function close.");
     }
