@@ -302,6 +302,7 @@ class WorkSchedulesController extends SugarController
         $alert->save();
     }
 
+    /*
     public function action_getWorkScheduleDetails()
     {
         global $db;
@@ -336,6 +337,39 @@ class WorkSchedulesController extends SugarController
         }
 
         error_log("CLOSE details");
+    }*/
+
+    public function action_getWorkScheduleDetails()
+    {
+        global $db;
+
+        error_log("get details");
+
+        if (isset($_REQUEST['id'])) {
+            $workschedule_id = $_REQUEST['id'];
+
+            error_log("good ID");
+
+            $workschedule_id = $db->quote($workschedule_id);
+            $sql = "SELECT * FROM workschedules WHERE id = '{$workschedule_id}'";
+            $result = $db->query($sql);
+
+            if ($result && $db->getRowCount($result) > 0) {
+                $workschedule_details = [];
+                while ($row = $db->fetchByAssoc($result)) {
+                    $workschedule_details[] = $row;
+                }
+                error_log(json_encode($workschedule_details));
+                echo json_encode($workschedule_details);
+            } else {
+                echo json_encode(['error' => 'Work schedule not found.']);
+            }
+        } else {
+            echo json_encode(['error' => 'No ID provided.']);
+        }
+
+        error_log("CLOSE details");
     }
+
 
 }
