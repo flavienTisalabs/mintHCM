@@ -3285,10 +3285,18 @@ class SugarBean {
 
       error_log("IIIIIII");
 
+      error_log($locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset));
+
+      error_log($OBCharset);
+      
+
+      error_log(mb_encode_mimeheader(trim($notify_name), 'UTF-8'));
+
+      error_log('salut');
 
       $notify_mail = new SugarPHPMailer();
       $notify_mail->addAddress(
-              $notify_address, $locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset)
+              $notify_address, trim($notify_name)
       );
 
       error_log("OOOOOOOOOOOOOOOOOOO");
