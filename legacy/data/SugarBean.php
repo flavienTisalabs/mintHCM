@@ -2204,7 +2204,7 @@ class SugarBean {
     * @return string ID
     * @todo Add support for field type validation and encoding of parameters.
     */
-   public function save($check_notify = true) {
+   public function save($check_notify = false) {
       $this->in_save = true;
       // cn: SECURITY - strip XSS potential vectors
       $this->cleanBean();
