@@ -158,7 +158,7 @@ class Notification  extends NotificationAbstractClass
         
 
         $this->alert_bean = $bean;
-        $this->alert_bean->save();
+        $this->alert_bean->save(true);
         return $this;
     }
 }
