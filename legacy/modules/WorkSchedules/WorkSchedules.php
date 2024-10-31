@@ -177,7 +177,7 @@ class WorkSchedules extends Basic
         }
 
         // MintHCM #76236 START
-        //$this->disableAlertForConfirmedWorkSchedule();
+        $this->disableAlertForConfirmedWorkSchedule();
         // MintHCM #76236 END
 
         $this->beforeSave();
