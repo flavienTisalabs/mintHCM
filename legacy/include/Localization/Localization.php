@@ -453,21 +453,12 @@ class Localization
     /**
      * translates a character set from one to another, and the into MIME-header friendly format
      */
-    /*
-    public function translateCharsetMIME($string, $fromCharset, $toCharset = 'UTF-8', $encoding = "Q")
-    {
-        $previousEncoding = mb_internal_encoding();
-        mb_internal_encoding($fromCharset);
-        $result = mb_encode_mimeheader($string, $toCharset, $encoding);
-        mb_internal_encoding($previousEncoding);
-        return $result;
-    }*/
-
     public function translateCharsetMIME($string, $fromCharset, $toCharset = 'UTF-8', $encoding = "Q")
     {
         $previousEncoding = mb_internal_encoding();
         mb_internal_encoding($fromCharset);
 
+        //$result = mb_encode_mimeheader($string, $toCharset, $encoding);
         $result = iconv_mime_encode('', $string, [
             'input-charset' => $fromCharset,
             'output-charset' => $toCharset,
