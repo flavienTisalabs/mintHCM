@@ -75,12 +75,14 @@ class WorkScheduleLeaveCreated extends NotificationPlugin
                 ]
             );
         if ($superior_id) {
+            error_log("salutsalutsalut");
             $this->getNewNotification()
                 ->setDescription($message)
                 ->setAssignedUserId($superior_id)
                 ->setRelatedBean($this->work_schedule->id, 'WorkSchedules')
                 ->setType($this->getType())
                 ->saveAsAlert()->WebPush();
+            error_log("CIAOCIAO");
         }
 
     }

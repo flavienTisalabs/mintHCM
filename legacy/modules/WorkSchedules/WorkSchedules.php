@@ -204,8 +204,10 @@ class WorkSchedules extends Basic
             }
         }
 
+        error_log("NOTIFICATION");
         $this->addNotification($new_record);
 
+        error_log("ALERT");
         if ($new_record && $this->status == 'request') {
             $deputyId = $this->deputy_id;    
             $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";

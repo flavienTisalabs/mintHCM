@@ -2317,7 +2317,11 @@ class SugarBean {
             $this->custom_fields->save($isUpdate);
          }
 
+         error_log("YOYOYOYOYOYOY");
+
          $this->_sendNotifications($check_notify);
+
+         error_log("OKOKOKOK");
 
          if ( $isUpdate ) {
             $ret = $this->db->update($this);
