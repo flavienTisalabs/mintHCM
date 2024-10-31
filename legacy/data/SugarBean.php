@@ -3142,11 +3142,12 @@ class SugarBean {
     */
    public function get_notification_recipients() {
       $notify_user = BeanFactory::newBean('Users');
-      error_log(json_encode($notify_user));
+      error_log(print_r($notify_user, true));
+
       $notify_user->retrieve($this->assigned_user_id);
       error_log($this->assigned_user_id);
       $this->new_assigned_user_name = $notify_user->full_name;
-      error_log(json_encode($notify_user));
+      error_log(print_r($notify_user, true));
 
       $GLOBALS['log']->info("Notifications: recipient is $this->new_assigned_user_name");
 
@@ -3162,7 +3163,10 @@ class SugarBean {
    public function send_assignment_notifications($notify_user, $admin) {
       global $current_user;
 
+      error_log("in send assigment notification");
+
       if ((($this->object_name == 'Meeting' || $this->object_name == 'Call') || $notify_user->receive_notifications) && !in_array($notify_user->id, $this->sentAssignmentNotifications, true)) {
+         error_log("first if");
          $sendToEmail = $notify_user->emailAddress->getPrimaryAddress($notify_user);
          $sendEmail = true;
          if ( empty($sendToEmail) ) {
@@ -3171,8 +3175,11 @@ class SugarBean {
             $sendEmail = false;
          }
 
+         error_log("notify email");
          $notify_mail = $this->create_notification_email($notify_user);
          $notify_mail->setMailerForSystem();
+         error_log("end notify email");
+
 
          if ( empty($admin->settings['notify_send_from_assigning_user']) ) {
 
@@ -3198,10 +3205,16 @@ class SugarBean {
             $notify_mail->FromName = $from_name;
          }
 
+
+         error_log("after if else");
+
+
          $oe = new OutboundEmail();
          $oe = $oe->getUserMailerSettings($current_user);
          //only send if smtp server is defined
          if ( $sendEmail ) {
+            error_log("if sendEmail");
+
             $smtpVerified = false;
 
             //first check the user settings
@@ -3220,6 +3233,8 @@ class SugarBean {
             if ( !$smtpVerified ) {
                $GLOBALS['log']->fatal("Notifications: error sending e-mail, smtp server was not found ");
                //break out
+               error_log("ERROR SMTP");
+
                return;
             }
 
@@ -3229,8 +3244,12 @@ class SugarBean {
             } else {
                $this->sentAssignmentNotifications[] = $notify_user->id;
                $GLOBALS['log']->info("Notifications: e-mail successfully sent");
+               error_log("EMAIL SEND");
+
             }
          }
+         error_log("CLOSE");
+
       }
    }
 
