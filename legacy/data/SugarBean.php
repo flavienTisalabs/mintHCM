@@ -3285,12 +3285,12 @@ class SugarBean {
 
       error_log("IIIIIII");
 
-      error_log($locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset));
+      //error_log($locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset));
 
       error_log($OBCharset);
       
 
-      error_log(mb_encode_mimeheader(trim($notify_name), 'UTF-8'));
+      //error_log(mb_encode_mimeheader(trim($notify_name), 'UTF-8'));
 
       error_log('salut');
 
