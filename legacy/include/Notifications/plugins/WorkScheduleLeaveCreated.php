@@ -63,9 +63,8 @@ class WorkScheduleLeaveCreated extends NotificationPlugin
             return;
         }
         global $app_list_strings;
-        //$user = BeanFactory::getBean('Users', $this->work_schedule->assigned_user_id);
-        //$superior_id = $user->reports_to_id;
-        $superior_id = $this->work_schedule->deputy_id;
+        $user = BeanFactory::getBean('Users', $this->work_schedule->assigned_user_id);
+        $superior_id = $user->reports_to_id;
         $message = vsprintf(
             translate('LBL_LEAVE_ALERT', 'WorkSchedules'), 
             [
@@ -75,14 +74,12 @@ class WorkScheduleLeaveCreated extends NotificationPlugin
                 ]
             );
         if ($superior_id) {
-            error_log("salutsalutsalut");
             $this->getNewNotification()
                 ->setDescription($message)
                 ->setAssignedUserId($superior_id)
                 ->setRelatedBean($this->work_schedule->id, 'WorkSchedules')
                 ->setType($this->getType())
                 ->saveAsAlert()->WebPush();
-            error_log("CIAOCIAO");
         }
 
     }

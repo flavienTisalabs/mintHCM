@@ -2317,11 +2317,7 @@ class SugarBean {
             $this->custom_fields->save($isUpdate);
          }
 
-         error_log("YOYOYOYOYOYOY");
-
          $this->_sendNotifications($check_notify);
-
-         error_log("OKOKOKOK");
 
          if ( $isUpdate ) {
             $ret = $this->db->update($this);
@@ -3123,15 +3119,11 @@ class SugarBean {
 
 
          if ( $sendNotifications ) {
-            error_log("SENDNOTIFICATION");
             $notify_list = $this->get_notification_recipients();
-            error_log(json_encode($notify_list));
             foreach ( $notify_list as $notify_user ) {
                $this->send_assignment_notifications($notify_user, $admin);
             }
-            error_log("CLOSE SEND NOTIFICATION");
          }
-         error_log("END SEND NOTIFICATION");
       }
    }
 
@@ -3142,12 +3134,8 @@ class SugarBean {
     */
    public function get_notification_recipients() {
       $notify_user = BeanFactory::newBean('Users');
-      error_log(print_r($notify_user, true));
-
       $notify_user->retrieve($this->assigned_user_id);
-      error_log($this->assigned_user_id);
       $this->new_assigned_user_name = $notify_user->full_name;
-      error_log(print_r($notify_user, true));
 
       $GLOBALS['log']->info("Notifications: recipient is $this->new_assigned_user_name");
 
@@ -3163,10 +3151,7 @@ class SugarBean {
    public function send_assignment_notifications($notify_user, $admin) {
       global $current_user;
 
-      error_log("in send assigment notification");
-
       if ((($this->object_name == 'Meeting' || $this->object_name == 'Call') || $notify_user->receive_notifications) && !in_array($notify_user->id, $this->sentAssignmentNotifications, true)) {
-         error_log("first if");
          $sendToEmail = $notify_user->emailAddress->getPrimaryAddress($notify_user);
          $sendEmail = true;
          if ( empty($sendToEmail) ) {
@@ -3175,11 +3160,8 @@ class SugarBean {
             $sendEmail = false;
          }
 
-         error_log("notify email");
          $notify_mail = $this->create_notification_email($notify_user);
          $notify_mail->setMailerForSystem();
-         error_log("end notify email");
-
 
          if ( empty($admin->settings['notify_send_from_assigning_user']) ) {
 
@@ -3206,15 +3188,10 @@ class SugarBean {
          }
 
 
-         error_log("after if else");
-
-
          $oe = new OutboundEmail();
          $oe = $oe->getUserMailerSettings($current_user);
          //only send if smtp server is defined
          if ( $sendEmail ) {
-            error_log("if sendEmail");
-
             $smtpVerified = false;
 
             //first check the user settings
@@ -3233,8 +3210,6 @@ class SugarBean {
             if ( !$smtpVerified ) {
                $GLOBALS['log']->fatal("Notifications: error sending e-mail, smtp server was not found ");
                //break out
-               error_log("ERROR SMTP");
-
                return;
             }
 
@@ -3244,12 +3219,8 @@ class SugarBean {
             } else {
                $this->sentAssignmentNotifications[] = $notify_user->id;
                $GLOBALS['log']->info("Notifications: e-mail successfully sent");
-               error_log("EMAIL SEND");
-
             }
          }
-         error_log("CLOSE");
-
       }
    }
 
@@ -3269,38 +3240,18 @@ class SugarBean {
 
       require_once("include/SugarPHPMailer.php");
 
-      error_log(print_r($notify_user, true));
 
       $notify_address = $notify_user->emailAddress->getPrimaryAddress($notify_user);
-
-      error_log($notify_address);
-
       $notify_name = $notify_user->full_name;
-
-      $notify_name = $notify_user->full_name ?? 'Utilisateur inconnu';
-
-      error_log($notify_name);
 
       $GLOBALS['log']->debug("Notifications: user has e-mail defined");
 
       error_log("IIIIIII");
-
       //error_log($locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset));
-
-      error_log($OBCharset);
-      
-
-      //error_log(mb_encode_mimeheader(trim($notify_name), 'UTF-8'));
-
-      error_log('salut');
-
       $notify_mail = new SugarPHPMailer();
       $notify_mail->addAddress(
               $notify_address, trim($notify_name)
       );
-
-      error_log("OOOOOOOOOOOOOOOOOOO");
-
 
       $current_language = get_current_language();
       

@@ -204,16 +204,13 @@ class WorkSchedules extends Basic
             }
         }
 
-        error_log("NOTIFICATION");
-        $this->addNotification($new_record);
+        //$this->addNotification($new_record);
 
-        error_log("ALERT");
         if ($new_record && $this->status == 'request') {
             $deputyId = $this->deputy_id;    
             $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";
             $this->sendAlert($deputyId, $notificationMessage);
         }
-        error_log("END ALERT");
 
         if ($parent_result) {
             if (isset($_REQUEST['return_module']) && ($_REQUEST['return_module'] == 'Calendar' || $_REQUEST['return_module'] == 'Home')) {
@@ -241,7 +238,7 @@ class WorkSchedules extends Basic
             $alert->parent_id = $this->related_id;
         }
     
-        $alert->save();
+        $alert->save(true);
     }
     
 

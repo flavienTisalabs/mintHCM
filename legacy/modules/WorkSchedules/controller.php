@@ -294,7 +294,7 @@ class WorkSchedulesController extends SugarController
         $alert->url_redirect = "index.php?module=WorkSchedules&action=DetailView&record=" . $id;
         $alert->alert_type = 'normal'; 
 
-        $alert->save();
+        $alert->save(true);
     }
 
     public function action_getWorkScheduleDetails()
