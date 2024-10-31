@@ -3269,14 +3269,30 @@ class SugarBean {
 
       require_once("include/SugarPHPMailer.php");
 
+      error_log(print_r($notify_user, true));
+
       $notify_address = $notify_user->emailAddress->getPrimaryAddress($notify_user);
+
+      error_log($notify_address);
+
       $notify_name = $notify_user->full_name;
+
+      $notify_name = $notify_user->full_name ?? 'Utilisateur inconnu';
+
+      error_log($notify_name);
+
       $GLOBALS['log']->debug("Notifications: user has e-mail defined");
+
+      error_log("IIIIIII");
+
 
       $notify_mail = new SugarPHPMailer();
       $notify_mail->addAddress(
               $notify_address, $locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset)
       );
+
+      error_log("OOOOOOOOOOOOOOOOOOO");
+
 
       $current_language = get_current_language();
       
