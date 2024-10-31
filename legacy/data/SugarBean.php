@@ -3247,11 +3247,14 @@ class SugarBean {
       $GLOBALS['log']->debug("Notifications: user has e-mail defined");
 
       error_log("IIIIIII");
-      //error_log($locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset));
+      error_log($locale->translateCharsetMIME(trim($notify_name), 'UTF-8', $OBCharset));
       $notify_mail = new SugarPHPMailer();
       $notify_mail->addAddress(
               $notify_address, trim($notify_name)
       );
+
+      error_log("GOOD");
+
 
       $current_language = get_current_language();
       
