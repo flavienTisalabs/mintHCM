@@ -213,6 +213,7 @@ class WorkSchedules extends Basic
             $notificationMessage = "A new WorkSchedule of type {$this->type} has been created by {$current_user->name}.";
             $this->sendAlert($deputyId, $notificationMessage);
         }
+        error_log("END ALERT");
 
         if ($parent_result) {
             if (isset($_REQUEST['return_module']) && ($_REQUEST['return_module'] == 'Calendar' || $_REQUEST['return_module'] == 'Home')) {

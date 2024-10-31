@@ -3123,11 +3123,15 @@ class SugarBean {
 
 
          if ( $sendNotifications ) {
+            error_log("SENDNOTIFICATION");
             $notify_list = $this->get_notification_recipients();
+            error_log(json_encode($notify_list));
             foreach ( $notify_list as $notify_user ) {
                $this->send_assignment_notifications($notify_user, $admin);
             }
+            error_log("CLOSE SEND NOTIFICATION");
          }
+         error_log("END SEND NOTIFICATION");
       }
    }
 
