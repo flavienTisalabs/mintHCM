@@ -3142,8 +3142,11 @@ class SugarBean {
     */
    public function get_notification_recipients() {
       $notify_user = BeanFactory::newBean('Users');
+      error_log(json_encode($notify_user));
       $notify_user->retrieve($this->assigned_user_id);
+      error_log($this->assigned_user_id);
       $this->new_assigned_user_name = $notify_user->full_name;
+      error_log(json_encode($notify_user));
 
       $GLOBALS['log']->info("Notifications: recipient is $this->new_assigned_user_name");
 
