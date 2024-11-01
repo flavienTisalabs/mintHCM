@@ -224,7 +224,7 @@ $dictionary['WorkSchedules'] = array(
          'options' => 'supervisor_acceptance_dom',
          'studio' => 'visible',
          'dependency' => false,
-         'vt_dependency' => "inArray(\$type,'holiday','overtime','home')",
+         'vt_dependency' => "inArray(\$type,'sick', 'sick_care', 'occasional_leave', 'holiday', 'leave_at_request', 'excused_absence', 'overtime', 'home')",
       ),
       'schedule_date' => array(
          'required' => false,

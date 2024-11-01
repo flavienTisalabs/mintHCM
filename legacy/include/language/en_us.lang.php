@@ -4711,6 +4711,14 @@ $app_list_strings['workschedules_status_dom_colored'] = array(
     'planned' => $blue_status,
     'worked' => $yellow_status,
     'closed' => $green_status,
+    'request' => $gray_status,
+);
+$app_list_strings['supervisor_acceptance_dom_colored'] = array(
+    'wait' => $blue_status,
+    'not_applicable' => $gray_status,
+    'accepted' => $green_status,
+    'approve' => $green_status,
+    'reject' => $red_status,
 );
 $app_list_strings['position_status_colored'] = array(
     'planned' => $blue_status,
