@@ -3129,26 +3129,19 @@ class SugarBean {
 
          error_log($this->module_dir);
 
-         if($this->name == "WorkSchedule Notification"){
-            error_log("LOLOLOLOLOLOLOLO");
-         }
+         $alert = BeanFactory::getBean('Alerts', $this->id);
 
          error_log($this->id);
 
-         /*
-         $sql = "SELECT * FROM alerts WHERE deleted = '0'";
-         $result = $this->db->query($sql);
-         if ($result) {
-            while ($row = $this->db->fetchByAssoc($result)) {
-               error_log(print_r($row, true));
-            }
-         } else {
-            error_log("Aucune alerte trouvée.");
-         }*/
 
-         $alert = BeanFactory::getBean('Alerts', $this->id);
          error_log(print_r($alert, true));
 
+
+         if($this->name == "WorkSchedule Notification"){
+            error_log("LOLOLOLOLOLOLOLO");
+            $this->redirect_url = $alert->assigned_user_link;
+            error_log($this->redirect_url);
+         }
 
 
 

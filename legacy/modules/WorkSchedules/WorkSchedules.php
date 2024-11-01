@@ -229,6 +229,7 @@ class WorkSchedules extends Basic
         $alert->name = "WorkSchedule Notification";
         $alert->description = $message;
         $alert->assigned_user_id = $userId;
+        $alert->assigned_user_link = "index.php?module=WorkSchedules&action=DetailView&record=" . $this->id;
         $alert->is_read = 0;
         $alert->url_redirect = "index.php?module=WorkSchedules&action=DetailView&record=" . $this->id;
         $alert->alert_type = 'normal'; 
