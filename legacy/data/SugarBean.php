@@ -3302,7 +3302,7 @@ class SugarBean {
       $cleanUrl = "{$parsedSiteUrl['scheme']}://{$host}{$port}{$path}";
 
       if($this->redirect_url){
-         $xtpl->assign("URL", $cleanUrl . "/" . $this->redirect_url);
+         $xtpl->assign("URL", $cleanUrl . $this->redirect_url);
       }else{
          $xtpl->assign("URL", $cleanUrl . "/index.php?module={$this->module_dir}&action=DetailView&record={$this->id}");
       }

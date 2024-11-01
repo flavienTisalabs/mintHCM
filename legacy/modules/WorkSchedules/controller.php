@@ -290,6 +290,7 @@ class WorkSchedulesController extends SugarController
         $alert->name = "WorkSchedule Notification";
         $alert->description = $message;
         $alert->assigned_user_id = $user_id;
+        $alert->assigned_user_link = "/#/modules/WorkSchedules/DetailView/" . $id;
         $alert->is_read = 0;
         $alert->url_redirect = "index.php?module=WorkSchedules&action=DetailView&record=" . $id;
         $alert->alert_type = 'normal'; 
