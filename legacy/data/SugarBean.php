@@ -120,6 +120,11 @@ class SugarBean {
     * @var string $new_assigned_user_name
     */
    public $new_assigned_user_name;
+
+   /**
+   * @var string $new_assigned_user_name
+   */
+   public $redirect_url;
    /**
     * An array of bool.  This array is cleared out when data is loaded.
     * As date/times are converted, a "1" is placed under the key, the field is converted.
@@ -2262,6 +2267,13 @@ class SugarBean {
 
       require_once("data/BeanFactory.php");
       BeanFactory::registerBean($this->module_name, $this);
+
+      error_log("IIIIIIIIII");
+
+      error_log(print_r($this, true));
+      error_log(print_r($this->url_redirect, true));
+      
+
 
       if ( empty($GLOBALS['updating_relationships']) && empty($GLOBALS['saving_relationships']) && empty($GLOBALS['resavingRelatedBeans']) ) {
          $GLOBALS['saving_relationships'] = true;
