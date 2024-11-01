@@ -122,7 +122,7 @@ class SugarBean {
    public $new_assigned_user_name;
 
    /**
-   * @var string $new_assigned_user_name
+   * @var string $redirect_url
    */
    public $redirect_url;
    /**
@@ -3127,9 +3127,30 @@ class SugarBean {
 
          error_log(print_r($this, true));
 
-         if($this->module_dir == "WorkSchedules"){
-            $this->redirect_url = "index.php?module=WorkSchedules&action=DetailView&record=" . $this->id;
+         error_log($this->module_dir);
+
+         if($this->name == "WorkSchedule Notification"){
+            error_log("LOLOLOLOLOLOLOLO");
          }
+
+         error_log($this->id);
+
+         /*
+         $sql = "SELECT * FROM alerts WHERE deleted = '0'";
+         $result = $this->db->query($sql);
+         if ($result) {
+            while ($row = $this->db->fetchByAssoc($result)) {
+               error_log(print_r($row, true));
+            }
+         } else {
+            error_log("Aucune alerte trouvée.");
+         }*/
+
+         $alert = BeanFactory::getBean('Alerts', $this->id);
+         error_log(print_r($alert, true));
+
+
+
 
          if ( $sendNotifications ) {
             $notify_list = $this->get_notification_recipients();
@@ -3310,8 +3331,12 @@ class SugarBean {
       $cleanUrl = "{$parsedSiteUrl['scheme']}://{$host}{$port}{$path}";
 
       if($this->redirect_url){
+         error_log("LLLLLLLL");
+
          error_log($this->redirect_url);
       }
+
+      error_log($this->redirect_url);
 
       error_log("OOOOOOOOOYYYYYYYY");
 
