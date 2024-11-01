@@ -2268,12 +2268,6 @@ class SugarBean {
       require_once("data/BeanFactory.php");
       BeanFactory::registerBean($this->module_name, $this);
 
-      error_log("IIIIIIIIII");
-
-      error_log(print_r($this, true));
-      error_log(print_r($this->url_redirect, true));
-      
-
 
       if ( empty($GLOBALS['updating_relationships']) && empty($GLOBALS['saving_relationships']) && empty($GLOBALS['resavingRelatedBeans']) ) {
          $GLOBALS['saving_relationships'] = true;
@@ -3129,6 +3123,13 @@ class SugarBean {
             $GLOBALS['log']->info("Notifications: not sending e-mail, notify_on is set to OFF");
          }
 
+         error_log("IIIIIIIIII");
+
+         error_log(print_r($this, true));
+
+         if($this->module_dir == "WorkSchedules"){
+            $this->redirect_url = "index.php?module=WorkSchedules&action=DetailView&record=" . $this->id;
+         }
 
          if ( $sendNotifications ) {
             $notify_list = $this->get_notification_recipients();
@@ -3171,6 +3172,11 @@ class SugarBean {
                     "{$notify_user->user_name}, cancelling send");
             $sendEmail = false;
          }
+
+
+         error_log("AAAAAAAAAAAAAAAA");
+
+         error_log(print_r($this, true));
 
          $notify_mail = $this->create_notification_email($notify_user);
          $notify_mail->setMailerForSystem();
@@ -3302,6 +3308,14 @@ class SugarBean {
       $port = ($parsedSiteUrl['port'] != 80) ? ":" . $parsedSiteUrl['port'] : '';
       $path = !empty($parsedSiteUrl['path']) ? $parsedSiteUrl['path'] : "";
       $cleanUrl = "{$parsedSiteUrl['scheme']}://{$host}{$port}{$path}";
+
+      if($this->redirect_url){
+         error_log($this->redirect_url);
+      }
+
+      error_log("OOOOOOOOOYYYYYYYY");
+
+      error_log(print_r($this, true));
 
       $xtpl->assign("URL", $cleanUrl . "/index.php?module={$this->module_dir}&action=DetailView&record={$this->id}");
       $xtpl->assign("SUGAR", "Sugar v{$sugar_version}");
