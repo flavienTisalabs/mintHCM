@@ -3123,27 +3123,10 @@ class SugarBean {
             $GLOBALS['log']->info("Notifications: not sending e-mail, notify_on is set to OFF");
          }
 
-         error_log("IIIIIIIIII");
-
-         error_log(print_r($this, true));
-
-         error_log($this->module_dir);
-
-         $alert = BeanFactory::getBean('Alerts', $this->id);
-
-         error_log($this->id);
-
-
-         error_log(print_r($alert, true));
-
-
          if($this->name == "WorkSchedule Notification"){
-            error_log("LOLOLOLOLOLOLOLO");
+            $alert = BeanFactory::getBean('Alerts', $this->id);
             $this->redirect_url = $alert->assigned_user_link;
-            error_log($this->redirect_url);
          }
-
-
 
          if ( $sendNotifications ) {
             $notify_list = $this->get_notification_recipients();
@@ -3186,11 +3169,6 @@ class SugarBean {
                     "{$notify_user->user_name}, cancelling send");
             $sendEmail = false;
          }
-
-
-         error_log("AAAAAAAAAAAAAAAA");
-
-         error_log(print_r($this, true));
 
          $notify_mail = $this->create_notification_email($notify_user);
          $notify_mail->setMailerForSystem();
@@ -3324,18 +3302,11 @@ class SugarBean {
       $cleanUrl = "{$parsedSiteUrl['scheme']}://{$host}{$port}{$path}";
 
       if($this->redirect_url){
-         error_log("LLLLLLLL");
-
-         error_log($this->redirect_url);
+         $xtpl->assign("URL", $cleanUrl . "/" . $this->redirect_url);
+      }else{
+         $xtpl->assign("URL", $cleanUrl . "/index.php?module={$this->module_dir}&action=DetailView&record={$this->id}");
       }
 
-      error_log($this->redirect_url);
-
-      error_log("OOOOOOOOOYYYYYYYY");
-
-      error_log(print_r($this, true));
-
-      $xtpl->assign("URL", $cleanUrl . "/index.php?module={$this->module_dir}&action=DetailView&record={$this->id}");
       $xtpl->assign("SUGAR", "Sugar v{$sugar_version}");
       $xtpl->parse($template_name);
       $xtpl->parse($template_name . "_Subject");
